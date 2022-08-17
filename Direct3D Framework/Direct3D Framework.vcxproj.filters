@@ -92,33 +92,33 @@
     <Filter Include="Source">
       <UniqueIdentifier>{34dcb579-96ee-466a-bc1c-f7d01f52ddd7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource">
+    <Filter Include="Resources">
       <UniqueIdentifier>{52e6727d-b2a6-4890-963d-cdeba52fd322}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="directx.ico">
-      <Filter>Resource</Filter>
+      <Filter>Resources</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc">
-      <Filter>Resource</Filter>
+      <Filter>Resources</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="settings.manifest">
-      <Filter>Resource</Filter>
+      <Filter>Resources</Filter>
     </Manifest>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Resources\fbx\GolfBall.fbx">
-      <Filter>Resource</Filter>
+      <Filter>Resources</Filter>
     </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="Resources\cmo\GolfBall.cmo">
-      <Filter>Resource</Filter>
-    </CopyFileToFolders>
+    <_EmbedManagedResourceFile Include="Resources\cmo\GolfBall.cmo">
+      <Filter>Resources</Filter>
+    </_EmbedManagedResourceFile>
   </ItemGroup>
 </Project>

@@ -9,7 +9,7 @@ class GolfBall
 public:
 	// 摩擦係数
 	static const float FRICTION;
-	// 最大移動速度(1秒間辺りのドット数)
+	// 最大移動速度
 	static const float MAX_SPEED;
 
 public:
@@ -31,36 +31,37 @@ public:
 	void Initialize();
 	// 更新する
 	void Update(const float& elapsedTime);
-	// ゴルフボールの位置を予測する
-	DirectX::SimpleMath::Vector2 PredictFuturePosition(const float& time) const;
-	// ゴルフボールの移動にかかる時間を返す
-	float TimeToMoveDistance(const DirectX::SimpleMath::Vector2& from, const DirectX::SimpleMath::Vector2& to, const float& force) const;
 	// 描画する
 	void Render();
-	// 将来の位置を描画する
-	void GolfBall::DrawFuturePosition(const float& time);
+	// 後処理を行う
+	void Finalize();
+
 	// ゴルフボールを転がす
 	void Roll(const DirectX::SimpleMath::Vector2& direction, const float& force);
-	// 後処理
-	void Finalize();
+	// ゴルフボールの位置を予測する
+	DirectX::SimpleMath::Vector2 PredictFuturePosition(const float& time) const;
+	// ゴルフボールの移動にかかる時間を計算する
+	float CalculateTimeToMoveDistance(const DirectX::SimpleMath::Vector2& from, const DirectX::SimpleMath::Vector2& to, const float& force) const;
+	// 将来の位置を描画する
+	void DrawFuturePosition(const float& time);
 
 private:
 	// DirectXグラフィックス
 	Graphics* m_graphics;
 
-	// ボールモデル
+	// ゴルフボールモデル
 	DirectX::Model* m_model;
-	// ボールの回転を示すクォータニオン
+	// ゴルフボールの回転クォータニオン
 	DirectX::SimpleMath::Quaternion m_quaternion;
-	// 位置
+	// ゴルフボールの位置
 	DirectX::SimpleMath::Vector2 m_position;
-	// 速度
+	// ゴルフボールの速度
 	DirectX::SimpleMath::Vector2 m_velocity;
-	// 方向ベクトル
+	// ゴルフボールの方向
 	DirectX::SimpleMath::Vector2 m_heading;
-	// 質量
+	// ゴルフボールの質量
 	float m_mass;
-	// 半径
+	// ゴルフボールの半径
 	float m_radius;
 };
 

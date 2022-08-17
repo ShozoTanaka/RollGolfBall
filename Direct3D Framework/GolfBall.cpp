@@ -11,7 +11,7 @@ const float GolfBall::MAX_SPEED = 3.0f;
 GolfBall::GolfBall(DirectX::Model* model)
 	:
 	m_model(model),																	// モデル
-	m_quaternion{},																		// 回転クォータニオン
+	m_quaternion{},																		// クォータニオン
 	m_position(DirectX::SimpleMath::Vector2(0.0f, 0.0f)),			// 位置
 	m_velocity(DirectX::SimpleMath::Vector2(0.0f, 0.0f)),			// 速度
 	m_heading(DirectX::SimpleMath::Vector2(0.0f, 0.0f)),			// 向き
@@ -124,7 +124,7 @@ DirectX::SimpleMath::Vector2 GolfBall::PredictFuturePosition(const float& time) 
 
 // ゴルフボールの移動に掛かる時間を計算する
 	// 運動方程式: F(force) = M(mass) * A(accelaration)
-float GolfBall::TimeToMoveDistance(const DirectX::SimpleMath::Vector2& from, const DirectX::SimpleMath::Vector2& to, const float& force) const
+float GolfBall::CalculateTimeToMoveDistance(const DirectX::SimpleMath::Vector2& from, const DirectX::SimpleMath::Vector2& to, const float& force) const
 {
 	// 初速を計算する
 	float initialVelocity = force / m_mass;
