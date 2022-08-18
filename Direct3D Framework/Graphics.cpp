@@ -82,7 +82,8 @@ void Graphics::Initialize(DX::DeviceResources* deviceResources, const int& width
 	CD3D11_RASTERIZER_DESC rasterizerStateDesc(
 		D3D11_FILL_SOLID, D3D11_CULL_NONE, FALSE,
 		D3D11_DEFAULT_DEPTH_BIAS, D3D11_DEFAULT_DEPTH_BIAS_CLAMP,
-		D3D11_DEFAULT_SLOPE_SCALED_DEPTH_BIAS, TRUE, FALSE, FALSE, TRUE);
+		D3D11_DEFAULT_SLOPE_SCALED_DEPTH_BIAS, TRUE, FALSE, FALSE, TRUE
+	);
 	// ラスタライズステートを生成する
 	m_device->CreateRasterizerState(&rasterizerStateDesc, m_rasterrizerState.ReleaseAndGetAddressOf());
 	// エフェクトファクトリを生成する
@@ -98,7 +99,7 @@ void Graphics::DrawString(const float& x, const float& y, const wchar_t* str)
 	m_spriteFont->DrawString(m_spriteBatch.get(), str, DirectX::SimpleMath::Vector2(x, y));
 }
 
-// プリミティブ描画を開始する
+// 描画プリミティブを開始する
 void Graphics::DrawPrimitiveBegin(const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection)
 {
 	m_context->OMSetBlendState(m_commonStates->Opaque(), nullptr, 0xFFFFFFFF);
@@ -121,14 +122,14 @@ void Graphics::DrawPrimitiveBegin(const DirectX::SimpleMath::Matrix& view, const
 	m_basicEffect->Apply(m_context);
 	// 入力レイアウトを設定する
 	m_context->IASetInputLayout(m_inputLayout.Get());
-	// プリミティブ描画を開始する
+	// プリミティブバッチを開始する
 	m_primitiveBatch->Begin();
 }
 
-// プリミティブ描画を終了する
+// 描画プリミティブを終了する
 void Graphics::DrawPrimitiveEnd()
 {
-	// プリミティブ描画を終了する
+	// プリミティブバッチを終了する
 	m_primitiveBatch->End();
 }
 
