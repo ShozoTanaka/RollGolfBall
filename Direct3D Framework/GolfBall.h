@@ -7,12 +7,6 @@
 class GolfBall
 {
 public:
-	// 摩擦係数
-	static const float FRICTION;
-	// 最大移動速度
-	static const float MAX_SPEED;
-
-public:
 	// 位置を取得する
 	DirectX::SimpleMath::Vector2 GetPosition() const { return m_position; }
 	// 位置を設定する
@@ -38,13 +32,12 @@ public:
 
 	// ゴルフボールを転がす
 	void Roll(const DirectX::SimpleMath::Vector2& direction, const float& force);
-	// ゴルフボールの位置を予測する
-	DirectX::SimpleMath::Vector2 PredictFuturePosition(const float& time) const;
-	// ゴルフボールの移動にかかる時間を計算する
-	float CalculateTimeToMoveDistance(const DirectX::SimpleMath::Vector2& from, const DirectX::SimpleMath::Vector2& to, const float& force) const;
-	// 将来の位置を描画する
-	void DrawFuturePosition(const float& time);
 
+public:
+	// 摩擦係数
+	static const float FRICTION;
+	// 最大移動速度
+	static const float MAX_SPEED;
 private:
 	// DirectXグラフィックス
 	Graphics* m_graphics;

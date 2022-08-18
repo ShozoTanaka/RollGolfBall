@@ -85,17 +85,6 @@ void GolfBall::Finalize()
 {
 }
 
-// 将来のゴルフボールの位置を描画する
-void GolfBall::DrawFuturePosition(const float& time)
-{
-	// プリミティブ描画を開始する
-	m_graphics->DrawPrimitiveBegin(m_graphics->GetViewMatrix(), m_graphics->GetProjectionMatrix());
-	// 10秒後の位置を表示する
-	m_graphics->DrawCircle(PredictFuturePosition(time), 2.0f);
-	// プリミティブ描画を終了する
-	m_graphics->DrawPrimitiveEnd();
-}
-
 // ゴルフボールを転がす
 void GolfBall::Roll(const DirectX::SimpleMath::Vector2& direction, const float& force)
 {
@@ -104,34 +93,4 @@ void GolfBall::Roll(const DirectX::SimpleMath::Vector2& direction, const float& 
 	Vector2 kickDirection = Normalize(direction);
 	// 運動方程式から速度を計算する
 	m_velocity = kickDirection * force / m_mass;
-}
-
-// 将来のゴルフボールの位置を予測する
-// 等加速度直線運動の公式： distance = (velocity * time) + (1/2 * acceralation * time^2)
-DirectX::SimpleMath::Vector2 GolfBall::PredictFuturePosition(const float& time) const
-{
-	using namespace DirectX::SimpleMath;
-	
-	// 初速の移動ベクトルを計算する
-	Vector2 initialVelocity = m_velocity * time;
-	// 速度を正規化する
-	Vector2 velocity = Normalize(m_velocity);
-	// 減速した分の移動距離を計算する
-	float distance = 0.5f * GolfBall::FRICTION * time * time;
-	// 位置を返す
-	return m_position + initialVelocity + velocity * distance;
-}
-
-// ゴルフボールの移動に掛かる時間を計算する
-	// 運動方程式: F(force) = M(mass) * A(accelaration)
-float GolfBall::CalculateTimeToMoveDistance(const DirectX::SimpleMath::Vector2& from, const DirectX::SimpleMath::Vector2& to, const float& force) const
-{
-	// 初速を計算する
-	float initialVelocity = force / m_mass;
-	// ゴルフボールまでの距離を計算する
-	float distanceToGolfBall = (from - to).Length();
- 	// ゴルフボールの位置に到達した時の速度を計算する
-	float velocity = sqrtf(initialVelocity * initialVelocity + 2.0f * distanceToGolfBall * GolfBall::FRICTION);
-	// ゴルフボールまでの到達時間を返す
-	return (velocity - initialVelocity) / GolfBall::FRICTION;
 }
