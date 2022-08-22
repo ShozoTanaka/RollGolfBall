@@ -64,7 +64,6 @@ void GraphScene::Initialize()
 	// クォータニオンカメラ回転を初期化する
 	m_cameraRotation.CreateFromYawPitchRoll(DirectX::SimpleMath::Vector3(0.0f, 1.0f, 0.0f));
 	// ゴルフボールのモデルをロードする
-	//m_graphics->GetFX()->SetDirectory(L"resources\\cmo");
 	m_golfBallModel = DirectX::Model::CreateFromCMO(m_device, L"resources\\cmo\\GolfBall.cmo", *m_graphics->GetFX());
 	// ゴルフボールを生成する
 	m_golfBall = std::make_unique<GolfBall>(m_golfBallModel.get());
@@ -92,27 +91,23 @@ void GraphScene::Update(const DX::StepTimer& timer)
 	// 視点と注視点の距離を計算する
 	m_distance = eyePosition.Length();
 
-	// 左右キーで転がすゴルフボールの方向を変える
+	// [←][→]キーでゴルフボールの転がす方向を変える
 	if (m_keyboardState.Left && m_keyboardState.LeftControl)
 		m_rollAngle += 1.0f;
 	if (m_keyboardState.Right && m_keyboardState.LeftControl)
 		m_rollAngle -= 1.0f;
 
-	// 上下キーで転がすゴルフボールの力を変える
+	// [↑][↓]キーでゴルフボールの転がす力を変える
 	if (m_keyboardState.Up && m_keyboardState.LeftControl)
 		m_rollPower += 0.1f;
 	if (m_keyboardState.Down && m_keyboardState.LeftControl)
 		m_rollPower -= 0.1f;
 
-	// スペースキーでゴルフボールを転がす
+	// [Space]キーでゴルフボールを転がす
 	if (m_game->GetKeyboardTracker().IsKeyPressed(DirectX::Keyboard::Space))
 	{
-		// ゴルフボールの位置を設定する
-		m_golfBall->SetPosition(START_POSITION);
-		// 速度を初期化する
-		m_golfBall->SetVelocity(Vector2::Zero);
 		// ゴルフを転がす方向を設定する
-		Vector2 direction(1.0f, 0);
+		Vector2 direction(1.0f, 0.0f);
 		// 回転行列を生成する
 		Matrix rotationMatrix = Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_rollAngle));
 		// 回転後の向きを計算する
@@ -167,29 +162,29 @@ void GraphScene::DrawBall()
 	m_golfBall->Render();
 }
 
-// ボールを転がす方向を描画する
+// ゴルフボールを転がす方向を描画する
 void GraphScene::DrawRollDirection()
 {
 	using namespace DirectX::SimpleMath;
 
-	// ゴルフボールが止まった場合
+	// ゴルフボールが停止している場合
 	if (m_golfBall->GetVelocity().Length() < 0.01f )
 	{
-		// ゴルフボールの位置を設定する
+		// ゴルフボールの初期位置を設定する
 		m_golfBall->SetPosition(START_POSITION);
 		// 速度を初期化する
 		m_golfBall->SetVelocity(Vector2::Zero);
-		// ゴルフボールの角度を設定する
+		// ゴルフボールの方向を設定する
 		Vector2 angle(1.0f, 0.0f);
 		// 回転行列を生成する
 		Matrix rotationMatrix = Matrix::CreateRotationZ(DirectX::XMConvertToRadians(m_rollAngle));
 		//  ゴルフボールを転がす方向を計算する
 		angle = Vector2::Transform(angle, rotationMatrix);
-		// プリミティブ描画を開始する
+		// 描画プリミティブを開始する
 		m_graphics->DrawPrimitiveBegin(m_graphics->GetViewMatrix(), m_graphics->GetProjectionMatrix());
 		// ゴルフボールを転がす方向を表すベクトルを描画する
 		m_graphics->DrawVector(m_golfBall->GetPosition(), angle * m_rollPower * 10.0f);
-		// プリミティブ描画を終了する
+		// 描画プリミティブを終了する
 		m_graphics->DrawPrimitiveEnd();
 	}
 }

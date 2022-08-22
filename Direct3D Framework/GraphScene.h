@@ -10,7 +10,7 @@ class Game;
 
 class GraphScene
 {
-public:
+private:
 	// ŠJŽnˆÊ’u
 	const DirectX::SimpleMath::Vector2 START_POSITION = DirectX::SimpleMath::Vector2(-80.0f, 0.0f);
 
