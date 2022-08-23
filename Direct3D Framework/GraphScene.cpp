@@ -156,8 +156,6 @@ void GraphScene::Finalize()
 // ƒ{[ƒ‹‚ğ•`‰æ‚·‚é
 void GraphScene::DrawBall()
 {
-	// ƒSƒ‹ƒtƒ{[ƒ‹‚Ì«—ˆ‚ÌˆÊ’u‚ğ•`‰æ‚·‚é
-	// m_golfBall->DrawFuturePosition(10);
 	// ƒSƒ‹ƒtƒ{[ƒ‹‚ğ•`‰æ‚·‚é
 	m_golfBall->Render();
 }
