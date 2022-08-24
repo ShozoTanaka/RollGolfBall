@@ -108,8 +108,8 @@ private:
 
 	// ロールアングル
 	float m_rollAngle;
-	// ロールパワー
-	float m_rollPower;
+	// ロールフォース
+	float m_rollForce;
 };
 
 #endif		// GRAPH_SCENE_DEFINED

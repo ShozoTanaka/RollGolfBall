@@ -41,7 +41,7 @@ GraphScene::GraphScene(Game* game)
 	m_golfBallModel(nullptr),					// ゴルフボールモデル
 	m_golfBall(nullptr),								// ゴルフボール
 	m_rollAngle(0.0f),								// 角度
-	m_rollPower(1.0f)								// パワー
+	m_rollForce(1.0f)									// 転がす力
 {
 	// DirectX Graphicsクラスのインスタンスを取得する
 	m_graphics = Graphics::GetInstance();
@@ -99,9 +99,9 @@ void GraphScene::Update(const DX::StepTimer& timer)
 
 	// [↑][↓]キーでゴルフボールの転がす力を変える
 	if (m_keyboardState.Up && m_keyboardState.LeftControl)
-		m_rollPower += 0.1f;
+		m_rollForce += 0.1f;
 	if (m_keyboardState.Down && m_keyboardState.LeftControl)
-		m_rollPower -= 0.1f;
+		m_rollForce -= 0.1f;
 
 	// [Space]キーでゴルフボールを転がす
 	if (m_game->GetKeyboardTracker().IsKeyPressed(DirectX::Keyboard::Space))
@@ -113,7 +113,7 @@ void GraphScene::Update(const DX::StepTimer& timer)
 		// 回転後の向きを計算する
 		direction = Vector2::Transform(direction, rotationMatrix);
 		// ゴルフボールを転がす
-		m_golfBall->Roll(direction, m_rollPower);
+		m_golfBall->Roll(direction, m_rollForce);
 	}
 	// ゴルフボールを更新する
 	m_golfBall->Update(elapsedTime);
@@ -181,7 +181,7 @@ void GraphScene::DrawRollDirection()
 		// 描画プリミティブを開始する
 		m_graphics->DrawPrimitiveBegin(m_graphics->GetViewMatrix(), m_graphics->GetProjectionMatrix());
 		// ゴルフボールを転がす方向を表すベクトルを描画する
-		m_graphics->DrawVector(m_golfBall->GetPosition(), angle * m_rollPower * 10.0f);
+		m_graphics->DrawVector(m_golfBall->GetPosition(), angle * m_rollForce * 10.0f);
 		// 描画プリミティブを終了する
 		m_graphics->DrawPrimitiveEnd();
 	}
