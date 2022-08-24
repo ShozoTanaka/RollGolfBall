@@ -63,9 +63,9 @@ void GraphScene::Initialize()
 { 
 	// クォータニオンカメラ回転を初期化する
 	m_cameraRotation.CreateFromYawPitchRoll(DirectX::SimpleMath::Vector3(0.0f, 1.0f, 0.0f));
-	// ゴルフボールのモデルをロードする
+	// CMO形式のゴルフボールのモデルをロードする
 	m_golfBallModel = DirectX::Model::CreateFromCMO(m_device, L"resources\\cmo\\GolfBall.cmo", *m_graphics->GetFX());
-	// ゴルフボールを生成する
+	// GolfBallクラスのインスタンスを生成する
 	m_golfBall = std::make_unique<GolfBall>(m_golfBallModel.get());
 }
 
