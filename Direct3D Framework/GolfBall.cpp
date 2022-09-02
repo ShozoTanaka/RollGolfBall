@@ -90,7 +90,7 @@ void GolfBall::Roll(const DirectX::SimpleMath::Vector2& direction, const float& 
 {
 	using namespace DirectX::SimpleMath;
 	// ゴルフボールが転がる方向ベクトルを正規化する
-	Vector2 kickDirection = Normalize(direction);
+	Vector2 rollDirection = Normalize(direction);
 	// 運動方程式から速度を計算する
-	m_velocity = kickDirection * force / m_mass;
+	m_velocity = rollDirection * force / m_mass;
 }
